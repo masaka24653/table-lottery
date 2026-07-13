@@ -1,129 +1,78 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>飲み会テーブル抽選</title>
-<style>
-body{
-    font-family:sans-serif;
-    max-width:600px;
-    margin:20px auto;
-    padding:10px;
-}
-button{
-    font-size:24px;
-    padding:15px 30px;
-    margin:10px 0;
-}
-#result{
-    font-size:48px;
-    font-weight:bold;
-    text-align:center;
-    margin:30px 0;
-}
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-th,td{
-    border:1px solid #ccc;
-    padding:8px;
-    text-align:center;
-}
-.full{
-    background:#ddd;
-    color:#888;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>席ガチャ</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>飲み会テーブル抽選</h1>
+<header>
+    <h1>🎲 席ガチャ</h1>
+</header>
 
-<p>
-テーブル設定（例）<br>
-1～6番：6名<br>
-7～10番：4名
-</p>
+<main>
 
-<button onclick="drawTable()">抽選する</button>
+<section id="resultArea">
+    <h2>抽選結果</h2>
 
-<div id="result">―</div>
+    <div id="result">
+        まだ抽選していません
+    </div>
 
-<h2>残席状況</h2>
-<table>
-<thead>
-<tr>
-<th>テーブル</th>
-<th>残席</th>
-</tr>
-</thead>
-<tbody id="status"></tbody>
-</table>
+    <button id="drawButton">
+        抽選する
+    </button>
+</section>
 
-<script>
-const tables = {
-    1:6,
-    2:6,
-    3:6,
-    4:6,
-    5:6,
-    6:6,
-    7:4,
-    8:4,
-    9:4,
-    10:4
-};
+<hr>
 
-function updateTable(){
-    const tbody=document.getElementById("status");
-    tbody.innerHTML="";
+<section id="statusArea">
+    <h2>残席状況</h2>
 
-    Object.keys(tables).forEach(no=>{
-        const tr=document.createElement("tr");
+    <div id="tableList">
+        <!-- JavaScriptで表示 -->
+    </div>
+</section>
 
-        if(tables[no]===0){
-            tr.classList.add("full");
-        }
+<hr>
 
-        tr.innerHTML=`
-            <td>${no}</td>
-            <td>${tables[no]}</td>
-        `;
+<section id="buttons">
 
-        tbody.appendChild(tr);
-    });
-}
+    <button id="undoButton">
+        ↩ キャンセル
+    </button>
 
-function drawTable(){
+    <button id="resetButton">
+        🔄 リセット
+    </button>
 
-    const available=[];
+</section>
 
-    Object.entries(tables).forEach(([no,remain])=>{
-        for(let i=0;i<remain;i++){
-            available.push(Number(no));
-        }
-    });
+<hr>
 
-    if(available.length===0){
-        document.getElementById("result").textContent="終了";
-        return;
-    }
+<section id="settings">
 
-    const selected =
-        available[Math.floor(Math.random()*available.length)];
+<h2>設定</h2>
 
-    tables[selected]--;
+<div id="settingsList">
+    <!-- JavaScriptで表示 -->
+</div>
 
-    document.getElementById("result").textContent =
-        `${selected}番テーブル`;
+<button id="addTableButton">
+＋ テーブル追加
+</button>
 
-    updateTable();
-}
+<button id="saveButton">
+💾 設定を保存
+</button>
 
-updateTable();
-</script>
+</section>
+
+</main>
+
+<script src="script.js"></script>
 
 </body>
 </html>
