@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>飲み会テーブル抽選</title>
+<style>
+body{
+    font-family:sans-serif;
+    max-width:600px;
+    margin:20px auto;
+    padding:10px;
+}
+button{
+    font-size:24px;
+    padding:15px 30px;
+    margin:10px 0;
+}
+#result{
+    font-size:48px;
+    font-weight:bold;
+    text-align:center;
+    margin:30px 0;
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+th,td{
+    border:1px solid #ccc;
+    padding:8px;
+    text-align:center;
+}
+.full{
+    background:#ddd;
+    color:#888;
+}
+</style>
+</head>
+<body>
+
+<h1>飲み会テーブル抽選</h1>
+
+<p>
+テーブル設定（例）<br>
+1～6番：6名<br>
+7～10番：4名
+</p>
+
+<button onclick="drawTable()">抽選する</button>
+
+<div id="result">―</div>
+
+<h2>残席状況</h2>
+<table>
+<thead>
+<tr>
+<th>テーブル</th>
+<th>残席</th>
+</tr>
+</thead>
+<tbody id="status"></tbody>
+</table>
+
+<script>
+const tables = {
+    1:6,
+    2:6,
+    3:6,
+    4:6,
+    5:6,
+    6:6,
+    7:4,
+    8:4,
+    9:4,
+    10:4
+};
+
+function updateTable(){
+    const tbody=document.getElementById("status");
+    tbody.innerHTML="";
+
+    Object.keys(tables).forEach(no=>{
+        const tr=document.createElement("tr");
+
+        if(tables[no]===0){
+            tr.classList.add("full");
+        }
+
+        tr.innerHTML=`
+            <td>${no}</td>
+            <td>${tables[no]}</td>
+        `;
+
+        tbody.appendChild(tr);
+    });
+}
+
+function drawTable(){
+
+    const available=[];
+
+    Object.entries(tables).forEach(([no,remain])=>{
+        for(let i=0;i<remain;i++){
+            available.push(Number(no));
+        }
+    });
+
+    if(available.length===0){
+        document.getElementById("result").textContent="終了";
+        return;
+    }
+
+    const selected =
+        available[Math.floor(Math.random()*available.length)];
+
+    tables[selected]--;
+
+    document.getElementById("result").textContent =
+        `${selected}番テーブル`;
+
+    updateTable();
+}
+
+updateTable();
+</script>
+
+</body>
+</html>
