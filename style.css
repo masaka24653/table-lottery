@@ -1,83 +1,104 @@
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-    background: #f5f5f5;
-    margin: 0;
-    padding: 20px;
-    color: #333;
+body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:#f4f4f4;
+    color:#333;
 }
 
-main {
-    max-width: 600px;
-    margin: auto;
+main{
+    max-width:600px;
+    margin:auto;
+    padding:20px;
 }
 
-h1 {
-    text-align: center;
+h1{
+    text-align:center;
+    margin-bottom:30px;
 }
 
-section {
-    background: white;
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+section{
+    background:#fff;
+    border-radius:12px;
+    padding:20px;
+    margin-bottom:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
-#result {
-    font-size: 42px;
-    text-align: center;
-    font-weight: bold;
-    margin: 20px 0;
-    color: #1565c0;
+#result{
+    font-size:60px;
+    font-weight:bold;
+    text-align:center;
+    margin:25px 0;
+    min-height:70px;
 }
 
-button {
-    width: 100%;
-    padding: 14px;
-    margin-top: 10px;
-    font-size: 18px;
-    border: none;
-    border-radius: 10px;
-    background: #1976d2;
-    color: white;
-    cursor: pointer;
+button{
+    width:100%;
+    padding:14px;
+    font-size:18px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    margin-top:10px;
 }
 
-button:hover {
-    background: #0d47a1;
+#drawButton{
+    background:#ff9800;
+    color:white;
 }
 
-#undoButton {
-    background: #ff9800;
+#undoButton{
+    background:#2196f3;
+    color:white;
 }
 
-#resetButton {
-    background: #d32f2f;
+#resetButton{
+    background:#f44336;
+    color:white;
 }
 
-#saveButton {
-    background: #388e3c;
+#settingsTitle{
+    cursor:pointer;
+    user-select:none;
 }
 
-#addTableButton {
-    background: #7b1fa2;
+#settingsBody{
+    margin-top:15px;
 }
 
-hr {
-    display: none;
+.settingRow{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:10px;
 }
 
-.tableRow {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 0;
-    border-bottom: 1px solid #eee;
+.tableName{
+    width:60px;
+    font-weight:bold;
 }
 
-input[type="text"],
-input[type="number"] {
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+.capacity{
+    flex:1;
+}
+
+.smallButton{
+    width:40px;
+    height:40px;
+    margin:0;
+    padding:0;
+    font-size:22px;
+}
+
+.deleteButton{
+    width:45px;
+    background:#666;
+    color:white;
+}
+
+#tableList .row{
+    display:flex;
+    justify-content:space-between;
+    padding:8px 0;
+    border-bottom:1px solid #eee;
 }

@@ -8,67 +8,53 @@
 </head>
 <body>
 
-<header>
-    <h1>🎲 席ガチャ</h1>
-</header>
-
 <main>
 
-<section id="resultArea">
-    <h2>抽選結果</h2>
+    <h1>🎲 席ガチャ</h1>
 
-    <div id="result">
-        まだ抽選していません
-    </div>
+    <section id="resultArea">
+        <div id="result">
+            まだ抽選していません
+        </div>
 
-    <button id="drawButton">
-        抽選する
-    </button>
-</section>
+        <button id="drawButton">
+            🎲 抽選する
+        </button>
+    </section>
 
-<hr>
+    <section id="statusArea">
+        <h2>残席</h2>
 
-<section id="statusArea">
-    <h2>残席状況</h2>
+        <div id="tableList">
+            <!-- JavaScriptで表示 -->
+        </div>
+    </section>
 
-    <div id="tableList">
-        <!-- JavaScriptで表示 -->
-    </div>
-</section>
+    <section id="buttons">
+        <button id="undoButton">
+            ↩ キャンセル
+        </button>
 
-<hr>
+        <button id="resetButton">
+            🔄 リセット
+        </button>
+    </section>
 
-<section id="buttons">
+    <section id="settings">
+        <h2 id="settingsTitle">
+            ⚙ 設定 ▼
+        </h2>
 
-    <button id="undoButton">
-        ↩ キャンセル
-    </button>
+        <div id="settingsBody">
+            <div id="settingsList">
+                <!-- JavaScriptで表示 -->
+            </div>
 
-    <button id="resetButton">
-        🔄 リセット
-    </button>
-
-</section>
-
-<hr>
-
-<section id="settings">
-
-<h2>設定</h2>
-
-<div id="settingsList">
-    <!-- JavaScriptで表示 -->
-</div>
-
-<button id="addTableButton">
-＋ テーブル追加
-</button>
-
-<button id="saveButton">
-💾 設定を保存
-</button>
-
-</section>
+            <button id="addTableButton">
+                ＋ テーブル追加
+            </button>
+        </div>
+    </section>
 
 </main>
 
