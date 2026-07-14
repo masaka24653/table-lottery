@@ -1,7 +1,11 @@
 const STORAGE_KEY = "seat-gacha-settings";
 
 let tables = [];
+let history = [];
+let animationTimer = null;
+let isDrawing = false;
 
+const result = document.getElementById("result");
 const settingsList = document.getElementById("settingsList");
 const settingsBody = document.getElementById("settingsBody");
 const settingsTitle = document.getElementById("settingsTitle");
@@ -48,8 +52,9 @@ function renderSettings() {
 
     tables.forEach((table, index) => {
 
-        const row = document.createElement("div");
-        row.className = "settingRow";
+        const row=document.createElement("div");
+
+        row.className="row";
 
         row.innerHTML = `
             <div class="tableName">${index + 1}番</div>
@@ -112,18 +117,48 @@ function renderStatus(){
 
     tables.forEach((table,index)=>{
 
-        const row=document.createElement("div");
+    const row=document.createElement("div");
 
-        row.className="row";
+    row.className="row";
+
+    if(table.remaining===0){
+       row.style.color="#999";
+    }
+
+        let seats="";
+
+        if(table.remaining===0){
+
+            seats="🚫 満席";
+
+        }else{
+
+            for(let i=0;i<table.capacity;i++){
+
+                if(i<table.remaining){
+                    seats+="🟩";
+                }else{
+                    seats+="⬜";
+                }
+
+            }
+
+        }
 
         row.innerHTML=`
             <div>${index+1}番</div>
-            <div>${table.remaining}/${table.capacity}</div>
+            <div>${seats}</div>
         `;
 
         tableList.appendChild(row);
 
     });
+
+const drawButton = document.getElementById("drawButton");
+
+const remain = tables.reduce((sum,t)=>sum+t.remaining,0);
+
+drawButton.disabled = remain===0;
 
 }
 
@@ -148,6 +183,114 @@ document.getElementById("addTableButton").onclick=()=>{
 
 };
 
+document.getElementById("drawButton").onclick = () => {
+
+    if (isDrawing) return;
+
+    const availableSeats = [];
+
+    tables.forEach((table, index) => {
+
+        for (let i = 0; i < table.remaining; i++) {
+            availableSeats.push(index);
+        }
+
+    });
+
+    if (availableSeats.length === 0) {
+        result.textContent = "全席満席";
+        return;
+    }
+
+    isDrawing = true;
+
+    let count = 0;
+
+    animationTimer = setInterval(() => {
+
+        const random =
+            Math.floor(Math.random() * tables.length);
+
+        result.textContent = `${random + 1}番`;
+
+        count++;
+
+        if (count >= 10) {
+
+            clearInterval(animationTimer);
+
+            const randomIndex =
+                Math.floor(Math.random() * availableSeats.length);
+
+            const selectedTableIndex =
+                availableSeats[randomIndex];
+
+            const selectedTable =
+                tables[selectedTableIndex];
+
+            selectedTable.remaining--;
+
+            history.push(selectedTableIndex);
+
+            result.innerHTML = `
+                ${selectedTableIndex + 1}番
+                <div class="remainingText">
+                    残り${selectedTable.remaining}席
+                </div>
+            `;
+
+            saveSettings();
+            renderStatus();
+
+            isDrawing = false;
+
+        }
+
+    }, 80);
+
+};
+
+document.getElementById("undoButton").onclick = () => {
+
+    if (history.length === 0) {
+        result.textContent = "取り消せる抽選がありません";
+        return;
+    }
+
+    const canceledTableIndex = history.pop();
+    const canceledTable = tables[canceledTableIndex];
+
+    canceledTable.remaining++;
+
+    result.textContent = `${canceledTableIndex + 1}番を取り消しました`;
+
+    saveSettings();
+    renderStatus();
+
+};
+
+document.getElementById("resetButton").onclick = () => {
+
+    if (!confirm("抽選結果をリセットしますか？")) {
+        return;
+    }
+
+    tables.forEach(table => {
+        table.remaining = table.capacity;
+    });
+
+    history = [];
+
+    result.textContent = "まだ抽選していません";
+
+    saveSettings();
+    renderStatus();
+
+};
+
 loadSettings();
+
+settingsBody.style.display = "none";
+settingsTitle.textContent = "⚙ 設定 ▶";
 
 render();
