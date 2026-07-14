@@ -94,6 +94,7 @@ button{
 
 .deleteButton{
     width:45px;
+    margin-left:auto;
     background:#666;
     color:white;
 }
