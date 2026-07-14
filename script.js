@@ -57,15 +57,15 @@ function renderSettings() {
         row.className="row";
 
         row.innerHTML = `
-            <div class="tableName">${index + 1}番</div>
+           <div class="tableName">${index + 1}番：</div>
 
-            <button class="smallButton minus">－</button>
-
-            <div class="capacity">
-                定員 ${table.capacity}
+           <div class="capacity">
+               定員${table.capacity}名
             </div>
 
             <button class="smallButton plus">＋</button>
+
+            <button class="smallButton minus">－</button>
 
             <button class="deleteButton">🗑</button>
         `;
