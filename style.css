@@ -81,7 +81,6 @@ button{
 
 .capacity {
     flex: 1;
-    white-space: nowrap;
 }
 
 .smallButton{
@@ -94,7 +93,7 @@ button{
 
 .deleteButton{
     width:45px;
-    margin-left:auto;
+    margin-left:30pt;
     background:#666;
     color:white;
 }
