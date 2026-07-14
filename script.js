@@ -160,6 +160,12 @@ const remain = tables.reduce((sum,t)=>sum+t.remaining,0);
 
 drawButton.disabled = remain===0;
 
+const totalSeats = tables.reduce((sum, t) => sum + t.capacity, 0);
+const remainingSeats = tables.reduce((sum, t) => sum + t.remaining, 0);
+
+document.getElementById("seatSummary").textContent =
+    `${remainingSeats}/${totalSeats}`;
+
 }
 
 function render(){
