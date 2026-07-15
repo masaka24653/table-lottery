@@ -454,7 +454,7 @@ document.getElementById("resetButton").onclick = () => {
 
     history = [];
 
-    result.textContent = "まだ抽選していません";
+    result.textContent = "抽選可能です";
 
     /*
      * リセットは設定変更とは別に即時保存
